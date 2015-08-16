@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>react-todos</title>
+    <script src="dist/react.js"></script>
+    <script src="dist/JSXTransformer.js"></script>
+    <script src="dist/todos.js"></script>
+  </head>
+  <body>
+    <div id="todos"></div>
+    <script type="text/jsx">
+      var data = [
+        {title: "Get beer"},
+        {title: "Wash truck"},
+        {title: "Drink beer"},
+      ];
+
+      React.render(<Todos data={data} />, document.getElementById('todos'));
+    </script>
+  </body>
+</html>
