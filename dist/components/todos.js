@@ -49,8 +49,6 @@ var TodosList = (function (_React$Component2) {
   _createClass(TodosList, [{
     key: "render",
     value: function render() {
-      console.log('<TodosList />');
-
       var todoNodes = this.props.data.map(function (todo) {
         return React.createElement(Todo, { title: todo.title });
       });
@@ -80,7 +78,7 @@ var TodosForm = (function (_React$Component3) {
     value: function handleSubmit(e) {
       e.preventDefault();
 
-      console.log('TODO: Push new TODO here');
+      // TODO: Push new TODO here
 
       React.findDOMNode(this.refs.title).value = '';
 
