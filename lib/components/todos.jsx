@@ -6,31 +6,27 @@ class Todos extends React.Component {
       <div className="todos">
         <h1>react-todos</h1>
         <TodosList data={this.props.data} />
-        <TodosForm />
       </div>
     );
   }
 }
 
 class TodosList extends React.Component {
-  render() {
-    var todoNodes = this.props.data.map(todo => {
-      return (<Todo title={todo.title} />);
-    });
-
-    return (
-      <div className="todos-list">
-        {todoNodes}
-      </div>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {data: props.data};
   }
-}
 
-class TodosForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    // TODO: Push new TODO here
+    var newTitle = React.findDOMNode(this.refs.title).value;
+
+    this.setState({
+      data: this.state.data.concat([{
+        title: newTitle
+      }])
+    });
 
     React.findDOMNode(this.refs.title).value = '';
 
@@ -38,11 +34,25 @@ class TodosForm extends React.Component {
   }
 
   render() {
+    var todoNodes = this.state.data.map(todo => {
+      return (<Todo title={todo.title} />);
+    });
+
     return (
-      <form className="todos-form" onSubmit={this.handleSubmit.bind(this)}>
-        <input type="text" placeholder="Enter a TODO" ref="title" />
-      </form>
+      <div className="todos-list">
+        {todoNodes}
+        <form className="todos-form" onSubmit={this.handleSubmit.bind(this)}>
+          <input type="text" placeholder="Enter a TODO" ref="title" />
+        </form>
+      </div>
     );
+  }
+}
+
+// TODO: factor form out into separate component below
+class TodosForm extends React.Component {
+  render() {
+    return;
   }
 }
 

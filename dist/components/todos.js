@@ -28,8 +28,7 @@ var Todos = (function (_React$Component) {
           null,
           "react-todos"
         ),
-        React.createElement(TodosList, { data: this.props.data }),
-        React.createElement(TodosForm, null)
+        React.createElement(TodosList, { data: this.props.data })
       );
     }
   }]);
@@ -40,23 +39,48 @@ var Todos = (function (_React$Component) {
 var TodosList = (function (_React$Component2) {
   _inherits(TodosList, _React$Component2);
 
-  function TodosList() {
+  function TodosList(props) {
     _classCallCheck(this, TodosList);
 
-    _get(Object.getPrototypeOf(TodosList.prototype), "constructor", this).apply(this, arguments);
+    _get(Object.getPrototypeOf(TodosList.prototype), "constructor", this).call(this, props);
+    this.state = { data: props.data };
   }
 
+  // TODO: factor form out into separate component below
+
   _createClass(TodosList, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+
+      var newTitle = React.findDOMNode(this.refs.title).value;
+
+      this.setState({
+        data: this.state.data.concat([{
+          title: newTitle
+        }])
+      });
+
+      React.findDOMNode(this.refs.title).value = '';
+
+      return;
+    }
+  }, {
     key: "render",
     value: function render() {
-      var todoNodes = this.props.data.map(function (todo) {
+      var todoNodes = this.state.data.map(function (todo) {
         return React.createElement(Todo, { title: todo.title });
       });
 
       return React.createElement(
         "div",
         { className: "todos-list" },
-        todoNodes
+        todoNodes,
+        React.createElement(
+          "form",
+          { className: "todos-form", onSubmit: this.handleSubmit.bind(this) },
+          React.createElement("input", { type: "text", placeholder: "Enter a TODO", ref: "title" })
+        )
       );
     }
   }]);
@@ -74,24 +98,9 @@ var TodosForm = (function (_React$Component3) {
   }
 
   _createClass(TodosForm, [{
-    key: "handleSubmit",
-    value: function handleSubmit(e) {
-      e.preventDefault();
-
-      // TODO: Push new TODO here
-
-      React.findDOMNode(this.refs.title).value = '';
-
-      return;
-    }
-  }, {
     key: "render",
     value: function render() {
-      return React.createElement(
-        "form",
-        { className: "todos-form", onSubmit: this.handleSubmit.bind(this) },
-        React.createElement("input", { type: "text", placeholder: "Enter a TODO", ref: "title" })
-      );
+      return;
     }
   }]);
 
