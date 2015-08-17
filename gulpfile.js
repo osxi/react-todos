@@ -1,7 +1,7 @@
 var gulp   = require('gulp');
 var babel  = require("gulp-babel");
 var server = require('gulp-server-livereload');
-var rimraf = require('gulp-rimraf');
+var del    = require('del');
 var jshint = require('gulp-jshint');
 
 var path = {
@@ -28,7 +28,7 @@ gulp.task('default', ['server']);
 gulp.task('clean', function() {
   return gulp.src(path.out.dist, {
     read: false
-  }).pipe(rimraf({
+  }).pipe(del({
     force: true
   }));
 });
