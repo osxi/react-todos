@@ -49,6 +49,8 @@ var TodosList = (function (_React$Component2) {
   _createClass(TodosList, [{
     key: "render",
     value: function render() {
+      console.log('<TodosList />');
+
       var todoNodes = this.props.data.map(function (todo) {
         return React.createElement(Todo, { title: todo.title });
       });
@@ -74,12 +76,23 @@ var TodosForm = (function (_React$Component3) {
   }
 
   _createClass(TodosForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+
+      console.log('TODO: Push new TODO here');
+
+      React.findDOMNode(this.refs.title).value = '';
+
+      return;
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
-        "div",
-        { className: "todo-form" },
-        "form goes here"
+        "form",
+        { className: "todos-form", onSubmit: this.handleSubmit.bind(this) },
+        React.createElement("input", { type: "text", placeholder: "Enter a TODO", ref: "title" })
       );
     }
   }]);

@@ -14,6 +14,8 @@ class Todos extends React.Component {
 
 class TodosList extends React.Component {
   render() {
+    console.log('<TodosList />');
+
     var todoNodes = this.props.data.map(todo => {
       return (<Todo title={todo.title} />);
     });
@@ -27,11 +29,21 @@ class TodosList extends React.Component {
 }
 
 class TodosForm extends React.Component {
+  handleSubmit(e) {
+    e.preventDefault();
+
+    console.log('TODO: Push new TODO here');
+
+    React.findDOMNode(this.refs.title).value = '';
+
+    return;
+  }
+
   render() {
     return (
-      <div className="todo-form">
-        form goes here
-      </div>
+      <form className="todos-form" onSubmit={this.handleSubmit.bind(this)}>
+        <input type="text" placeholder="Enter a TODO" ref="title" />
+      </form>
     );
   }
 }
